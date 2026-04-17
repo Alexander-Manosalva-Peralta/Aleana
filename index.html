@@ -158,11 +158,20 @@
             </div>
         </div>
         <!-- Mobile Hero Content -->
-        <div class="lg:hidden absolute inset-0 bg-black/20 flex flex-col justify-end p-8 text-white">
-            <h1 class="text-5xl serif italic mb-4">Aleana</h1>
-            <p class="text-xs uppercase tracking-widest mb-10">Alta Costura Femenina</p>
-            <a href="#catalogo" class="bg-white text-vino text-center py-4 text-xs uppercase tracking-widest">Explorar</a>
-        </div>
+        <div class="lg:hidden absolute inset-0 bg-black/30 flex flex-col justify-center items-center text-center px-6 text-white">
+    <h1 class="text-4xl serif italic leading-tight mb-4">
+        Delicadeza <br>& Perfección
+    </h1>
+
+    <p class="text-[11px] uppercase tracking-[0.4em] mb-8 opacity-80">
+        Nueva Temporada
+    </p>
+
+    <a href="#catalogo"
+       class="border border-white px-8 py-3 text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-vino transition">
+       Ver Colección
+    </a>
+</div>
     </section>
 
     <!-- Catálogo -->
@@ -180,7 +189,7 @@
                 </div>
             </div>
 
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
+            <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-10">
                 <!-- Inyección JS -->
             </div>
         </div>
@@ -662,12 +671,12 @@ let currentColor = null; // 🔥 AGREGA ESTA LÍNEA
                             <button class="w-full bg-perla py-3 text-[10px] uppercase tracking-[0.3em] text-vino hover:bg-vino hover:text-white transition">Seleccionar</button>
                         </div>
                     </div>
-                    <div class="mt-8 flex justify-between items-start">
+                    <div class="mt-4 flex flex-col gap-1">
                         <div>
                             <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">${p.category}</p>
-                            <h3 class="text-sm font-light hover:text-vino transition">${p.name}</h3>
+                            <h3 class="text-[11px] font-light leading-tight">${p.name}</h3>
                         </div>
-                        <p class="text-sm serif italic text-vino">S/ ${p.price.toFixed(2)}</p>
+                        <p class="text-[11px] serif italic text-vino">S/ ${p.price.toFixed(2)}</p>
                     </div>
                 </div>
             `).join('');
