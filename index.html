@@ -62,7 +62,7 @@
         }
 
         .product-image-container {
-            aspect-ratio: 3/4;
+            aspect-ratio: 4/5;
             overflow: hidden;
             background: #eee;
             position: relative;
@@ -124,7 +124,7 @@
     </div>
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed top-[35px] w-full z-50 px-8 py-8 transition-all duration-500 flex justify-between items-center">
+    <nav id="navbar" class="fixed top-[35px] w-full z-50 px-4 py-4 lg:px-8 lg:py-8 transition-all duration-500 flex justify-between items-center">
         <div class="flex items-center gap-12">
             <a href="#" class="text-3xl serif italic tracking-tighter text-vino">Aleana</a>
             <div class="hidden lg:flex gap-8 text-[10px] uppercase tracking-[0.3em] font-light">
@@ -145,7 +145,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative h-screen flex items-center bg-[#F2F0EB]">
+    <section class="relative h-[75vh] lg:h-screen flex items-center bg-[#F2F0EB]">
         <div class="absolute inset-0 grid grid-cols-12 gap-0 overflow-hidden">
             <div class="col-span-12 lg:col-span-7 h-full">
                 <img src="https://i.pinimg.com/1200x/5b/38/e3/5b38e3263365f9408babaa920f8c94ad.jpg" class="w-full h-full object-cover" alt="Fashion editorial">
@@ -157,29 +157,35 @@
                 <a href="#catalogo" class="w-fit border-b border-vino pb-2 text-[10px] uppercase tracking-[0.3em] hover:text-vino transition">Ver Colección</a>
             </div>
         </div>
-        <!-- Mobile Hero Content -->
-        <div class="lg:hidden absolute inset-0 bg-black/30 flex flex-col justify-center items-center text-center px-6 text-white">
-    <h1 class="text-4xl serif italic leading-tight mb-4">
-        Delicadeza <br>& Perfección
-    </h1>
+        <!-- Mobile Hero Content MEJORADO -->
+<div class="lg:hidden absolute inset-0 flex flex-col justify-end pb-16 items-center text-center px-6 text-white">
 
-    <p class="text-[11px] uppercase tracking-[0.4em] mb-8 opacity-80">
-        Nueva Temporada
-    </p>
+    <!-- Overlay degradado elegante -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
-    <a href="#catalogo"
-       class="border border-white px-8 py-3 text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-vino transition">
-       Ver Colección
-    </a>
+    <div class="relative z-10">
+        <h1 class="text-3xl serif italic leading-tight mb-3">
+            Delicadeza <br>& Perfección
+        </h1>
+
+        <p class="text-[10px] uppercase tracking-[0.4em] mb-6 opacity-80">
+            Nueva Temporada
+        </p>
+
+        <a href="#catalogo"
+           class="border border-white px-6 py-2 text-[9px] uppercase tracking-[0.3em] hover:bg-white hover:text-vino transition">
+           Ver Colección
+        </a>
+    </div>
 </div>
     </section>
 
     <!-- Catálogo -->
-    <section id="catalogo" class="py-32 px-6 lg:px-24 bg-white">
+    <section id="catalogo" class="py-20 lg:py-32 px-6 lg:px-24 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
                 <div>
-                    <h2 class="text-5xl serif italic text-vino mb-4">Nuestros Diseños</h2>
+                    <h2 class="text-3xl lg:text-5xl serif italic text-vino mb-4">Nuestros Diseños</h2>
                     <p class="text-xs uppercase tracking-[0.3em] text-gray-400 font-light italic">Piezas exclusivas hechas a mano</p>
                 </div>
                 <div class="flex gap-8 text-[10px] uppercase tracking-widest border-b border-gray-100 pb-2">
@@ -207,8 +213,8 @@
             <div class="space-y-8">
                 <h3 class="text-4xl serif italic text-vino">El Arte de la Feminidad</h3>
                 <p class="font-light leading-relaxed text-gray-600">
-                    Aleana nace de la búsqueda de la belleza eterna. Nuestras piezas son el resultado de horas de trabajo manual, donde el color **Vino** representa nuestra pasión, el **Perla** nuestra pureza y el **Rosado Mate** la suavidad de la piel femenina.
-                </p>
+    Aleana nace de la búsqueda de la belleza eterna. Nuestras piezas son el resultado de horas de trabajo manual, donde el color <span class="font-semibold text-vino">Vino</span> representa nuestra pasión, el <span class="font-semibold">Perla</span> nuestra pureza y el <span class="font-semibold">Rosado Mate</span> la suavidad de la piel femenina.
+</p>
                 <div class="grid grid-cols-2 gap-8 pt-8">
                     <div>
                         <h4 class="serif italic text-xl mb-2">Sostenible</h4>
@@ -225,8 +231,8 @@
 
     <!-- Footer -->
     <footer class="bg-vino text-perla pt-24 pb-12 px-8 lg:px-24">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-            <div class="md:col-span-2">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+            <div class="col-span-2 md:col-span-2">
                 <h2 class="text-4xl serif italic mb-8">Aleana</h2>
                 <p class="text-xs font-light tracking-widest opacity-60 leading-loose max-w-sm">
                     Suscríbete para recibir invitaciones a ventas privadas y adelantos de colección.
