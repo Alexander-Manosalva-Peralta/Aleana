@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aleana | Alta Costura y Delicadeza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --perla: #F9F7F2;
+            --rosado-mate: #E2C7C3;
+            --vino: #580B1A;
+            --vino-dark: #350610;
+            --texto: #2D2D2D;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--perla);
+            color: var(--texto);
+        }
+
+        .serif { font-family: 'Playfair Display', serif; }
+
+        /* Marquesina Fina */
+        .ticker-container {
+            background-color: var(--vino);
+            color: white;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px 0;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Nav Glassmorphism */
+        .nav-scrolled {
+            background: rgba(249, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem !important;
+            border-bottom: 1px solid rgba(88, 11, 26, 0.1);
+        }
+
+        /* Catálogo Editorial Corregido */
+        .product-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-image-container {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: #eee;
+            position: relative;
+        }
+
+        .product-image-primary, .product-image-secondary {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1.2s ease-in-out, transform 1.5s ease;
+        }
+
+        .product-image-secondary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .product-card:hover .product-image-secondary { opacity: 1; }
+        .product-card:hover .product-image-primary { transform: scale(1.05); }
+
+        /* Custom Buttons */
+        .btn-vino {
+            background-color: var(--vino);
+            color: white;
+            transition: all 0.4s ease;
+        }
+        .btn-vino:hover {
+            background-color: var(--vino-dark);
+            letter-spacing: 0.15em;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--perla); }
+        ::-webkit-scrollbar-thumb { background: var(--rosado-mate); }
+
+        /* Efecto Zoom en Detalle */
+        .zoom-container {
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+        .zoom-container img {
+            transition: transform 0.5s ease;
+        }
+        .zoom-container:hover img {
+            transform: scale(1.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Marquesina de Envíos -->
+    <div class="ticker-container sticky top-0 z-[60]">
+        <div class="ticker-text">
+            Envios gratis por compras mayores a 149.90 soles — Aleana: La elegancia en cada detalle — Envios gratis por compras mayores a 149.90 soles — Calidad artesanal — Envios gratis por compras mayores a 149.90 soles
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-[35px] w-full z-50 px-8 py-8 transition-all duration-500 flex justify-between items-center">
+        <div class="flex items-center gap-12">
+            <a href="#" class="text-3xl serif italic tracking-tighter text-vino">Aleana</a>
+            <div class="hidden lg:flex gap-8 text-[10px] uppercase tracking-[0.3em] font-light">
+                <a href="#catalogo" class="hover:text-vino transition">Colección</a>
+                <a href="#nosotros" class="hover:text-vino transition">Universo</a>
+                <a href="#" class="hover:text-vino transition">Atelier</a>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-8">
+            <button class="text-vino"><i data-lucide="search" class="w-5 h-5"></i></button>
+            <button onclick="toggleCart()" class="relative text-vino group">
+                <i data-lucide="shopping-basket" class="w-6 h-6"></i>
+                <!-- Badge corregido: no transparente -->
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-[#580B1A] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-sm hidden">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center bg-[#F2F0EB]">
+        <div class="absolute inset-0 grid grid-cols-12 gap-0 overflow-hidden">
+            <div class="col-span-12 lg:col-span-7 h-full">
+                <img src="https://i.pinimg.com/1200x/5b/38/e3/5b38e3263365f9408babaa920f8c94ad.jpg" class="w-full h-full object-cover" alt="Fashion editorial">
+            </div>
+            <div class="hidden lg:block lg:col-span-5 h-full bg-perla flex flex-col justify-center p-20">
+                <span class="text-rosado-mate text-xs uppercase tracking-[0.5em] mb-6 block">Nueva Temporada</span>
+                <h1 class="text-7xl serif italic text-vino leading-tight mb-8">Delicadeza <br>& Perfección</h1>
+                <p class="text-sm font-light leading-relaxed text-gray-500 mb-10 max-w-sm">Explora nuestra selección curada de piezas en seda y lino, diseñadas para elevar la feminidad cotidiana.</p>
+                <a href="#catalogo" class="w-fit border-b border-vino pb-2 text-[10px] uppercase tracking-[0.3em] hover:text-vino transition">Ver Colección</a>
+            </div>
+        </div>
+        <!-- Mobile Hero Content -->
+        <div class="lg:hidden absolute inset-0 bg-black/20 flex flex-col justify-end p-8 text-white">
+            <h1 class="text-5xl serif italic mb-4">Aleana</h1>
+            <p class="text-xs uppercase tracking-widest mb-10">Alta Costura Femenina</p>
+            <a href="#catalogo" class="bg-white text-vino text-center py-4 text-xs uppercase tracking-widest">Explorar</a>
+        </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section id="catalogo" class="py-32 px-6 lg:px-24 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                <div>
+                    <h2 class="text-5xl serif italic text-vino mb-4">Nuestros Diseños</h2>
+                    <p class="text-xs uppercase tracking-[0.3em] text-gray-400 font-light italic">Piezas exclusivas hechas a mano</p>
+                </div>
+                <div class="flex gap-8 text-[10px] uppercase tracking-widest border-b border-gray-100 pb-2">
+                    <button class="hover:text-vino transition">Vestidos</button>
+                    <button class="hover:text-vino transition">Blusas</button>
+                    <button class="hover:text-vino transition">Sastrería</button>
+                </div>
+            </div>
+
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
+                <!-- Inyección JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros -->
+    <section id="nosotros" class="py-32 px-6 lg:px-24 bg-[#FAF9F6]">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            <div class="relative group">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="Aleana.png" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110" alt="Process">
+                </div>
+                <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-rosado-mate/30 -z-10 rounded-full blur-2xl"></div>
+            </div>
+            <div class="space-y-8">
+                <h3 class="text-4xl serif italic text-vino">El Arte de la Feminidad</h3>
+                <p class="font-light leading-relaxed text-gray-600">
+                    Aleana nace de la búsqueda de la belleza eterna. Nuestras piezas son el resultado de horas de trabajo manual, donde el color **Vino** representa nuestra pasión, el **Perla** nuestra pureza y el **Rosado Mate** la suavidad de la piel femenina.
+                </p>
+                <div class="grid grid-cols-2 gap-8 pt-8">
+                    <div>
+                        <h4 class="serif italic text-xl mb-2">Sostenible</h4>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-400">Materiales orgánicos y procesos éticos.</p>
+                    </div>
+                    <div>
+                        <h4 class="serif italic text-xl mb-2">Exclusivo</h4>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-400">Series limitadas para evitar el exceso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-vino text-perla pt-24 pb-12 px-8 lg:px-24">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
+            <div class="md:col-span-2">
+                <h2 class="text-4xl serif italic mb-8">Aleana</h2>
+                <p class="text-xs font-light tracking-widest opacity-60 leading-loose max-w-sm">
+                    Suscríbete para recibir invitaciones a ventas privadas y adelantos de colección.
+                </p>
+            </div>
+            <div class="flex flex-col gap-4 text-[10px] uppercase tracking-[0.2em] font-light opacity-80">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">Envíos</a>
+            </div>
+            <div class="flex flex-col gap-4 text-[10px] uppercase tracking-[0.2em] font-light opacity-80">
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+                <a href="#">WhatsApp</a>
+            </div>
+        </div>
+        <p class="text-[9px] text-center opacity-30 uppercase tracking-[0.5em]">Aleana © 2026 — Creado para la mujer inolvidable</p>
+    </footer>
+
+    <!-- Modal Detalle Corregido con Galería Lateral -->
+    <div id="product-modal" class="fixed inset-0 z-[100] bg-vino/40 backdrop-blur-md hidden flex justify-center items-center p-4">
+        <div class="bg-white w-full max-w-6xl max-h-[90vh] overflow-y-auto relative rounded-sm shadow-2xl flex flex-col md:flex-row">
+            <button onclick="closeModal()" class="absolute top-6 right-6 z-50 hover:rotate-90 transition duration-300">
+                <i data-lucide="x" class="w-6 h-6 text-vino"></i>
+            </button>
+            <div id="modal-content" class="w-full flex flex-col md:flex-row">
+                <!-- Inyección JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Busca esta línea y reemplaza bg-perla por un estilo de fondo directo -->
+<div id="cart-drawer" class="fixed top-0 right-0 h-full w-full md:w-[400px] z-[110] shadow-2xl transform translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] p-10 flex flex-col" style="background-color: #F9F7F2;">
+        <div class="flex justify-between items-center mb-16">
+            <h2 class="text-3xl serif italic text-vino">Bolsa</h2>
+            <button onclick="toggleCart()" class="text-vino"><i data-lucide="arrow-right" class="w-6 h-6"></i></button>
+        </div>
+        <div id="cart-items" class="flex-grow overflow-y-auto space-y-8 pr-4">
+            <!-- Inyección JS -->
+        </div>
+        <div class="mt-10 pt-10 border-t border-vino/10">
+            <div class="flex justify-between mb-8">
+                <span class="text-[10px] uppercase tracking-widest opacity-60">Subtotal</span>
+                <span id="cart-total" class="text-xl serif italic text-vino">S/ 0.00</span>
+            </div>
+            <button onclick="checkoutWhatsApp()" class="w-full btn-vino py-5 text-[10px] uppercase tracking-[0.3em] shadow-xl">
+                Finalizar Pedido
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+{
+    id: 1,
+    name: "Top Anaya",
+    price: 37.00,
+    category: "Tops",
+    colors: {
+        white: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074209-fotor-enhance-20260403125712.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074211.-fotor-enhance-2026040313204.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074217.-fotor-enhance-20260403132401.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074227-fotor-enhance-20260403133405.jpg?raw=true"
+            ]
+        },
+        black: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074210-fotor-enhance-20260403125736.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074214.-fotor-enhance-2026040313228.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074224.-fotor-enhance-20260403132549.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000074227-fotor-enhance-20260403133405.jpg?raw=true"
+            ]
+        }
+    },
+    description: `
+<span class="font-semibold text-gray-700 tracking-wide">INFORMACIÓN DEL PRODUCTO</span><br><br>
+
+<span class="font-semibold text-gray-700">Fit:</span> Ajuste femenino que realza la silueta<br>
+<span class="font-semibold text-gray-700">Material:</span> Tela premium suave, ligera y cómoda al contacto con la piel<br><br>
+
+<span class="font-semibold text-gray-700">Detalles de diseño:</span><br>
+• Corte moderno y versátil, ideal para outfits casuales o elegantes<br>
+• Acabados delicados que aportan un look sofisticado<br>
+• Diseño pensado para brindar comodidad sin perder estilo<br><br>
+
+<span class="font-semibold text-gray-700">Acabado y calidad:</span><br>
+• Tela de buena estructura que mantiene su forma<br>
+• No transparenta<br>
+• No se deforma con el uso adecuado<br>
+`,
+care: `
+<span class="font-semibold text-gray-700 tracking-wide">CUIDADO Y LAVADO</span><br><br>
+
+Para mantener tu prenda en perfecto estado, sigue estas recomendaciones:<br><br>
+
+<span class="font-semibold text-gray-700">Preparación:</span><br>
+• Lavar la prenda al revés<br>
+• Separar por colores similares<br><br>
+
+<span class="font-semibold text-gray-700">Lavado:</span><br>
+• Usar agua fría<br>
+• Ciclo delicado<br>
+• Detergente suave (sin lejía ni blanqueadores)<br><br>
+
+<span class="font-semibold text-gray-700">Secado:</span><br>
+• Secar al aire libre (recomendado)<br>
+• Evitar secadora para conservar la forma<br><br>
+
+<span class="font-semibold text-gray-700">Planchado:</span><br>
+• Temperatura baja<br>
+• Planchar por el reverso para proteger la tela
+`
+},
+
+{
+    id: 2,
+    name: "Top Naomi",
+    price: 35.00,
+    category: "Tops",
+    colors: {
+    black: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075418-fotor-enhance-20260407131258.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075433-fotor-enhance-20260407131658.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075444-fotor-enhance-20260407131810.jpg?raw=true"
+            ]
+         },
+        white: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075419-fotor-enhance-20260407131606.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075434-fotor-enhance-20260407131721.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075445-fotor-enhance-20260407131831.jpg?raw=true"
+            ]
+        },
+    beige: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075420-fotor-enhance-20260407131334.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075441-fotor-enhance-20260407131747.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000075446-fotor-enhance-20260407131852.jpg?raw=true"
+            ]
+        }
+    },
+    description: `
+<span class="font-semibold text-gray-700 tracking-wide">INFORMACIÓN DEL PRODUCTO</span><br><br>
+
+<span class="font-semibold text-gray-700">Fit:</span> Ajuste femenino que realza la silueta<br>
+<span class="font-semibold text-gray-700">Material:</span> Tela premium suave, ligera y cómoda al contacto con la piel<br><br>
+
+<span class="font-semibold text-gray-700">Detalles de diseño:</span><br>
+• Corte moderno y versátil, ideal para outfits casuales o elegantes<br>
+• Acabados delicados que aportan un look sofisticado<br>
+• Diseño pensado para brindar comodidad sin perder estilo<br><br>
+
+<span class="font-semibold text-gray-700">Acabado y calidad:</span><br>
+• Tela de buena estructura que mantiene su forma<br>
+• No transparenta<br>
+• No se deforma con el uso adecuado<br>
+`,
+care: `
+<span class="font-semibold text-gray-700 tracking-wide">CUIDADO Y LAVADO</span><br><br>
+
+Para mantener tu prenda en perfecto estado, sigue estas recomendaciones:<br><br>
+
+<span class="font-semibold text-gray-700">Preparación:</span><br>
+• Lavar la prenda al revés<br>
+• Separar por colores similares<br><br>
+
+<span class="font-semibold text-gray-700">Lavado:</span><br>
+• Usar agua fría<br>
+• Ciclo delicado<br>
+• Detergente suave (sin lejía ni blanqueadores)<br><br>
+
+<span class="font-semibold text-gray-700">Secado:</span><br>
+• Secar al aire libre (recomendado)<br>
+• Evitar secadora para conservar la forma<br><br>
+
+<span class="font-semibold text-gray-700">Planchado:</span><br>
+• Temperatura baja<br>
+• Planchar por el reverso para proteger la tela
+`
+},
+
+{
+    id: 3,
+    name: "Top Luisa",
+    price: 35.00,
+    category: "Tops",
+    colors: {
+        wine: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077303-fotor-enhance-20260413114352.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/Picsart_26-04-13_12-21-11-740.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/Picsart_26-04-13_12-16-16-153.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1776102356176_124832.png?raw=true"
+            ]
+        },
+        black: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077299-fotor-enhance-20260413114327.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/Picsart_26-04-13_12-19-07-217.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/Picsart_26-04-13_12-14-23-102.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/Picsart_26-04-13_12-25-08-881.jpg?raw=true"
+            ]
+        }
+    },
+    description: `
+<span class="font-semibold text-gray-700 tracking-wide">INFORMACIÓN DEL PRODUCTO</span><br><br>
+
+<span class="font-semibold text-gray-700">Fit:</span> Ajuste femenino que realza la silueta<br>
+<span class="font-semibold text-gray-700">Material:</span> Tela premium suave, ligera y cómoda al contacto con la piel<br><br>
+
+<span class="font-semibold text-gray-700">Detalles de diseño:</span><br>
+• Corte moderno y versátil, ideal para outfits casuales o elegantes<br>
+• Acabados delicados que aportan un look sofisticado<br>
+• Diseño pensado para brindar comodidad sin perder estilo<br><br>
+
+<span class="font-semibold text-gray-700">Acabado y calidad:</span><br>
+• Tela de buena estructura que mantiene su forma<br>
+• No transparenta<br>
+• No se deforma con el uso adecuado<br>
+`,
+care: `
+<span class="font-semibold text-gray-700 tracking-wide">CUIDADO Y LAVADO</span><br><br>
+
+Para mantener tu prenda en perfecto estado, sigue estas recomendaciones:<br><br>
+
+<span class="font-semibold text-gray-700">Preparación:</span><br>
+• Lavar la prenda al revés<br>
+• Separar por colores similares<br><br>
+
+<span class="font-semibold text-gray-700">Lavado:</span><br>
+• Usar agua fría<br>
+• Ciclo delicado<br>
+• Detergente suave (sin lejía ni blanqueadores)<br><br>
+
+<span class="font-semibold text-gray-700">Secado:</span><br>
+• Secar al aire libre (recomendado)<br>
+• Evitar secadora para conservar la forma<br><br>
+
+<span class="font-semibold text-gray-700">Planchado:</span><br>
+• Temperatura baja<br>
+• Planchar por el reverso para proteger la tela
+`
+},
+
+{
+    id: 4,
+    name: "Top Rafaella",
+    price: 35.00,
+    category: "Tops",
+    colors: {
+        black: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077241-fotor-enhance-2026041311913.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077244-fotor-enhance-20260413111008.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077246-fotor-enhance-20260413111129.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/Picsart_26-04-13_12-35-33-049.jpg?raw=true"
+            ]
+        },
+        white: {
+            images: [
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077242-fotor-enhance-2026041311945.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077243-fotor-enhance-20260413111036.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1000077245-fotor-enhance-20260413111105.jpg?raw=true",
+                "https://github.com/Alexander-Manosalva-Peralta/Aleana/blob/main/1776102486181_124856.png?raw=true"
+            ]
+        }
+    },
+    description: `
+<span class="font-semibold text-gray-700 tracking-wide">INFORMACIÓN DEL PRODUCTO</span><br><br>
+
+<span class="font-semibold text-gray-700">Fit:</span> Ajuste femenino que realza la silueta<br>
+<span class="font-semibold text-gray-700">Material:</span> Tela premium suave, ligera y cómoda al contacto con la piel<br><br>
+
+<span class="font-semibold text-gray-700">Detalles de diseño:</span><br>
+• Corte moderno y versátil, ideal para outfits casuales o elegantes<br>
+• Acabados delicados que aportan un look sofisticado<br>
+• Diseño pensado para brindar comodidad sin perder estilo<br><br>
+
+<span class="font-semibold text-gray-700">Acabado y calidad:</span><br>
+• Tela de buena estructura que mantiene su forma<br>
+• No transparenta<br>
+• No se deforma con el uso adecuado<br>
+`,
+care: `
+<span class="font-semibold text-gray-700 tracking-wide">CUIDADO Y LAVADO</span><br><br>
+
+Para mantener tu prenda en perfecto estado, sigue estas recomendaciones:<br><br>
+
+<span class="font-semibold text-gray-700">Preparación:</span><br>
+• Lavar la prenda al revés<br>
+• Separar por colores similares<br><br>
+
+<span class="font-semibold text-gray-700">Lavado:</span><br>
+• Usar agua fría<br>
+• Ciclo delicado<br>
+• Detergente suave (sin lejía ni blanqueadores)<br><br>
+
+<span class="font-semibold text-gray-700">Secado:</span><br>
+• Secar al aire libre (recomendado)<br>
+• Evitar secadora para conservar la forma<br><br>
+
+<span class="font-semibold text-gray-700">Planchado:</span><br>
+• Temperatura baja<br>
+• Planchar por el reverso para proteger la tela
+`
+},
+{
+    id: 5,
+    name: "Top Helen",
+    price: 37.00,
+    category: "Tops",
+    colors: {
+        wine: {
+            images: [
+                "https://img.kwcdn.com/product/fancy/9b916707-f972-4c46-9622-18bc22155d40.jpg",
+                "https://img.kwcdn.com/product/fancy/8b0feeec-ebbb-49e6-9933-632bad922805.jpg"
+            ]
+        },
+        white: {
+            images: [
+                "https://images.unsplash.com/photo-1534126416832-a88fdf2911c2",
+                "https://images.unsplash.com/photo-1551487334-51035d82f1bc"
+            ]
+        }
+    },
+    description: `
+<span class="font-semibold text-gray-700 tracking-wide">INFORMACIÓN DEL PRODUCTO</span><br><br>
+
+<span class="font-semibold text-gray-700">Fit:</span> Ajuste femenino que realza la silueta<br>
+<span class="font-semibold text-gray-700">Material:</span> Tela premium suave, ligera y cómoda al contacto con la piel<br><br>
+
+<span class="font-semibold text-gray-700">Detalles de diseño:</span><br>
+• Corte moderno y versátil, ideal para outfits casuales o elegantes<br>
+• Acabados delicados que aportan un look sofisticado<br>
+• Diseño pensado para brindar comodidad sin perder estilo<br><br>
+
+<span class="font-semibold text-gray-700">Acabado y calidad:</span><br>
+• Tela de buena estructura que mantiene su forma<br>
+• No transparenta<br>
+• No se deforma con el uso adecuado<br>
+`,
+care: `
+<span class="font-semibold text-gray-700 tracking-wide">CUIDADO Y LAVADO</span><br><br>
+
+Para mantener tu prenda en perfecto estado, sigue estas recomendaciones:<br><br>
+
+<span class="font-semibold text-gray-700">Preparación:</span><br>
+• Lavar la prenda al revés<br>
+• Separar por colores similares<br><br>
+
+<span class="font-semibold text-gray-700">Lavado:</span><br>
+• Usar agua fría<br>
+• Ciclo delicado<br>
+• Detergente suave (sin lejía ni blanqueadores)<br><br>
+
+<span class="font-semibold text-gray-700">Secado:</span><br>
+• Secar al aire libre (recomendado)<br>
+• Evitar secadora para conservar la forma<br><br>
+
+<span class="font-semibold text-gray-700">Planchado:</span><br>
+• Temperatura baja<br>
+• Planchar por el reverso para proteger la tela
+`
+},
+
+
+{
+    id: 6,
+    name: "Top Capri",
+    price: 20.00,
+    category: "Tops",
+    colors: {
+        wine: {
+            images: [
+                "https://img.kwcdn.com/product/fancy/9b916707-f972-4c46-9622-18bc22155d40.jpg",
+                "https://img.kwcdn.com/product/fancy/8b0feeec-ebbb-49e6-9933-632bad922805.jpg"
+            ]
+        },
+        white: {
+            images: [
+                "https://images.unsplash.com/photo-1534126416832-a88fdf2911c2",
+                "https://images.unsplash.com/photo-1551487334-51035d82f1bc"
+            ]
+        }
+    },
+    description: `
+<span class="font-semibold text-gray-700 tracking-wide">INFORMACIÓN DEL PRODUCTO</span><br><br>
+
+<span class="font-semibold text-gray-700">Fit:</span> Ajuste femenino que realza la silueta<br>
+<span class="font-semibold text-gray-700">Material:</span> Tela premium suave, ligera y cómoda al contacto con la piel<br><br>
+
+<span class="font-semibold text-gray-700">Detalles de diseño:</span><br>
+• Corte moderno y versátil, ideal para outfits casuales o elegantes<br>
+• Acabados delicados que aportan un look sofisticado<br>
+• Diseño pensado para brindar comodidad sin perder estilo<br><br>
+
+<span class="font-semibold text-gray-700">Acabado y calidad:</span><br>
+• Tela de buena estructura que mantiene su forma<br>
+• No transparenta<br>
+• No se deforma con el uso adecuado<br>
+`,
+care: `
+<span class="font-semibold text-gray-700 tracking-wide">CUIDADO Y LAVADO</span><br><br>
+
+Para mantener tu prenda en perfecto estado, sigue estas recomendaciones:<br><br>
+
+<span class="font-semibold text-gray-700">Preparación:</span><br>
+• Lavar la prenda al revés<br>
+• Separar por colores similares<br><br>
+
+<span class="font-semibold text-gray-700">Lavado:</span><br>
+• Usar agua fría<br>
+• Ciclo delicado<br>
+• Detergente suave (sin lejía ni blanqueadores)<br><br>
+
+<span class="font-semibold text-gray-700">Secado:</span><br>
+• Secar al aire libre (recomendado)<br>
+• Evitar secadora para conservar la forma<br><br>
+
+<span class="font-semibold text-gray-700">Planchado:</span><br>
+• Temperatura baja<br>
+• Planchar por el reverso para proteger la tela
+`
+},
+];
+
+        let cart = [];
+let currentSize = null;
+let currentColor = null; // 🔥 AGREGA ESTA LÍNEA
+
+        function renderGrid() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card group" onclick="openModal(${p.id})">
+                    <div class="product-image-container relative">
+                        <img src="${Object.values(p.colors)[0].images[0]}" class="product-image-primary" alt="${p.name}">
+                        <img src="${Object.values(p.colors)[0].images[1]}" class="product-image-secondary" alt="${p.name} alternate">
+                        <div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-700">
+                            <button class="w-full bg-perla py-3 text-[10px] uppercase tracking-[0.3em] text-vino hover:bg-vino hover:text-white transition">Seleccionar</button>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex justify-between items-start">
+                        <div>
+                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">${p.category}</p>
+                            <h3 class="text-sm font-light hover:text-vino transition">${p.name}</h3>
+                        </div>
+                        <p class="text-sm serif italic text-vino">S/ ${p.price.toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function openModal(id) {
+    const p = products.find(x => x.id === id);
+    const content = document.getElementById('modal-content');
+
+    currentColor = Object.keys(p.colors)[0];
+    let images = p.colors[currentColor].images;
+
+    content.innerHTML = `
+
+    <!-- GALERÍA -->
+    <div class="md:w-[15%] flex md:flex-col gap-2 p-4 bg-gray-50">
+        ${images.map(img => `
+            <img src="${img}" onclick="changeMainImage('${img}')"
+            class="w-16 h-20 object-cover cursor-pointer">
+        `).join('')}
+    </div>
+
+    <!-- IMAGEN PRINCIPAL -->
+    <div class="md:w-[45%] zoom-container">
+        <img id="main-img" src="${images[0]}" class="w-full">
+    </div>
+
+    <!-- INFO -->
+    <div class="md:w-[40%] p-10 pb-20">
+
+        <h2 class="text-3xl serif text-vino mb-4">${p.name}</h2>
+        <p class="text-xl mb-6">S/ ${p.price}</p>
+
+        <!-- COLORES -->
+        <p class="text-xs mb-2">Color</p>
+        <div class="flex gap-2 mb-6">
+            ${Object.keys(p.colors).map(color => `
+                <button onclick="changeColor('${p.id}','${color}')"
+                class="w-6 h-6 rounded-full border"
+                style="background:${{
+    white: '#ffffff',
+    black: '#000000',
+    pink: '#E2C7C3',
+    beige: '#F5F5DC',
+    wine: '#580B1A'
+}[color] || color}">
+                </button>
+            `).join('')}
+        </div>
+
+        <!-- TALLAS -->
+        <p class="text-xs mb-2">Talla</p>
+        <div class="flex gap-2 mb-6">
+            ${['STANDAR'].map(t => `
+                <button onclick="selectSize(this,'${t}')"
+                class="size-btn border px-3 py-1">${t}</button>
+            `).join('')}
+        </div>
+
+        <!-- ENVÍO -->
+        <div class="flex items-center gap-2 text-green-600 mb-6">
+            <i data-lucide="truck"></i>
+            <span>ENVÍOS SEGUROS A TODO EL PERÚ</span>
+        </div>
+
+        <!-- BOTONES -->
+        <button onclick="addToCart(${p.id})" class="btn-vino w-full py-4 mb-4">
+    Agregar al carrito
+</button>
+
+        <!-- ACORDEONES -->
+        <div class="space-y-4">
+
+            <div class="space-y-2 mt-6">
+
+    ${[
+    {
+        title: "Descripción",
+        content: p.description
+    },
+    {
+    title: "Envíos y Cambios",
+    content: `
+<span class="font-semibold text-gray-700 tracking-wide">ENVÍOS Y CAMBIOS</span><br><br>
+
+<span class="font-semibold text-gray-700">Cajamarca:</span><br>
+Delivery estándar: S/5.00<br>
+Entrega a domicilio o punto acordado según la zona.<br><br>
+
+<span class="font-semibold text-gray-700">Otras provincias del Perú:</span><br>
+Envíos desde S/8.00 a S/15.00 dependiendo de la ciudad y agencia a eleccion.<br><br>
+
+<span class="font-semibold text-gray-700">Tiempo de entrega:</span><br>
+• Cajamarca: mismo día o coordinado previamente<br>
+• Provincias: 3 a 5 días hábiles<br><br>
+
+<span class="font-semibold text-gray-700">Importante:</span><br>
+• Los pedidos se procesan de lunes a sábado<br>
+• No se realizan envíos en feriados<br>
+• El tiempo empieza a contar después de la confirmación del pedido<br><br>
+
+<span class="font-semibold text-gray-700">Cambios:</span><br>
+Solo por fallas de fábrica dentro de las 24 horas posteriores a la entrega.
+`
+},
+    {
+    title: "Cuidado y Lavado",
+    content: `
+<span class="font-semibold text-gray-700 tracking-wide">CUIDADO Y LAVADO</span><br><br>
+
+Para mantener tu prenda en perfecto estado, sigue estas recomendaciones:<br><br>
+
+<span class="font-semibold text-gray-700">1. Preparación</span><br>
+• Lavar al revés<br>
+• Separar por colores similares<br><br>
+
+<span class="font-semibold text-gray-700">2. Lavado</span><br>
+• Usar agua fría<br>
+• Ciclo delicado<br>
+• Detergente suave (sin lejía)<br><br>
+
+<span class="font-semibold text-gray-700">3. Secado</span><br>
+• Secar al aire libre (recomendado)<br>
+• Evitar exposición directa prolongada al sol<br><br>
+
+<span class="font-semibold text-gray-700">4. Planchado</span><br>
+• Temperatura baja<br>
+• Planchar por el reverso para mayor cuidado
+`
+}
+].map((item, i) => `
+
+    <div class="border-b border-gray-200 pb-3">
+        <button onclick="toggleAccordion(${i})"
+            class="w-full flex justify-between items-center py-4 text-left group">
+
+            <span class="text-[11px] tracking-[0.25em] uppercase text-gray-400 font-medium group-hover:text-vino transition">
+                ${item.title}
+            </span>
+
+            <span id="icon-${i}" class="transition transform text-gray-400">+</span>
+        </button>
+
+        <div id="content-${i}" class="max-h-0 overflow-hidden transition-all duration-500">
+            <p class="text-[13px] text-gray-500 leading-relaxed pt-3 tracking-wide">
+                ${item.content}
+            </p>
+        </div>
+    </div>
+
+    `).join('')}
+
+
+    </div>
+    `;
+
+    document.getElementById('product-modal').classList.remove('hidden');
+    lucide.createIcons();
+}
+
+        function changeMainImage(src) {
+    document.getElementById('main-img').src = src;
+}
+function changeColor(productId, color) {
+    const p = products.find(x => x.id == productId);
+    const images = p.colors[color].images;
+
+    currentColor = color; // 🔥 GUARDA EL COLOR REAL
+
+    document.getElementById('main-img').src = images[0];
+
+    const gallery = document.querySelector('#modal-content div');
+    gallery.innerHTML = images.map(img => `
+        <img src="${img}" onclick="changeMainImage('${img}')"
+        class="w-16 h-20 object-cover cursor-pointer">
+    `).join('');
+}
+        function selectSize(el, size) {
+            // Limpiar otros botones
+            document.querySelectorAll('.size-btn').forEach(b => {
+                b.style.backgroundColor = 'transparent';
+                b.style.color = 'inherit';
+                b.classList.remove('border-vino');
+            });
+            // Aplicar estilo VINO sólido al seleccionado
+            el.style.backgroundColor = '#580B1A';
+            el.style.color = 'white';
+            el.classList.add('border-vino');
+            currentSize = size;
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('translate-x-full');
+        }
+
+        function addToCart(id) {
+    if (!currentSize) return alert("Por favor, selecciona una talla.");
+
+    const p = products.find(x => x.id === id);
+
+    const color = currentColor || Object.keys(p.colors)[0];
+    const image = p.colors[color].images[0];
+
+    cart.push({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        size: currentSize,
+        color: color,
+        image: image,
+        qty: 1
+    });
+
+    updateCartUI();
+    closeModal();
+    toggleCart();
+}
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            const countEl = document.getElementById('cart-count');
+
+            let total = 0;
+            container.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="flex gap-6 items-center animate-fade-in">
+                        <img src="${item.image}" class="w-16 h-20 object-cover border border-gray-100">
+                        <div class="flex-grow">
+                            <h4 class="text-xs uppercase tracking-widest text-vino mb-1 font-semibold">${item.name}</h4>
+                            <p class="text-[9px] text-gray-400 uppercase tracking-widest mb-1">
+Talla: ${item.size}
+</p>
+
+<p class="text-[9px] text-gray-400 uppercase tracking-widest mb-2">
+Color: ${item.color}
+</p>
+                            <p class="text-sm font-semibold text-vino">S/ ${item.price.toFixed(2)}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-vino transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = `S/ ${total.toFixed(2)}`;
+            countEl.innerText = cart.length;
+
+            // Badge corregido: fondo sólido vino
+            if (cart.length > 0) {
+                countEl.classList.remove('hidden');
+            } else {
+                countEl.classList.add('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+       function toggleAccordion(i) {
+    const content = document.getElementById(`content-${i}`);
+    const icon = document.getElementById(`icon-${i}`);
+
+    if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        icon.innerText = "+";
+        icon.classList.remove("rotate-45");
+    } else {
+        content.style.maxHeight = content.scrollHeight + 50 + "px"; // 🔥 pequeño extra
+        icon.innerText = "×";
+        icon.classList.add("rotate-45");
+    }
+}
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+            let msg = "✨ *NUEVO PEDIDO ALEANA* ✨\n\n";
+            let total = 0;
+            cart.forEach(item => {
+                msg += `👗 *${item.name}*\nTalla: ${item.size} | Precio: S/ ${item.price.toFixed(2)}\n\n`;
+                total += item.price;
+            });
+            msg += `\n*TOTAL A PAGAR: S/ ${total.toFixed(2)}*\n\n_Deseo coordinar el pago y envío._`;
+            window.open(`https://wa.me/51900000000?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+            else nav.classList.remove('nav-scrolled');
+        });
+
+        window.onload = renderGrid;
+    </script>
+</body>
+</html>
